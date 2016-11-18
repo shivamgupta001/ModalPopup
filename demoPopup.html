@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- created by shivam gupta 8/24/2016-->
+<html>
+<head>
+	<title>Popup Demo</title>
+	<link rel="stylesheet" type="text/css" href="ComponentStyle.css">
+	<style>
+		.a{
+			background-color : yellowgreen;
+			height : 100px;
+		}
+		.b{
+			background-color : greenyellow;
+			height : 100px;
+		}
+		.c{
+			background-color : aqua;
+			height : 100px;
+		}
+
+
+
+		/* standard popup css start*/
+
+		.flex-container-popup{
+			display : flex;
+			flex-flow: row wrap;
+		}
+		.flex-item-popup-icon{
+			flex : 1;
+			display: flex;
+			margin :auto;
+			justify-content: center;
+		}
+		.flex-item-popup-icon .errorPopupIcon{
+			background-image: url("error_icon.png");
+			width : 33px;
+			height : 33px;
+		}
+		.flex-item-popup-icon .warningPopupIcon{
+			background-image: url("warning_icon.png");
+			width : 37px;
+			height : 33px;
+		}
+		.flex-item-popup-icon .confirmPopupIcon{
+			background-image: url("error_icon.png");
+			width : 33px;
+			height : 33px;
+		}
+		.flex-item-popup-text{
+			flex : 6;	
+			color: #646464;
+    		font-size: 12px;
+    		font-weight: bold;
+    		font-family: arial;
+    		height: 90px;
+    		display : flex;
+    		align-items : center;
+    		margin : 5px;		
+		}
+		.popup-footer-btn{
+			flex : 1 100%;
+			background-color: #00294F;
+			height : 38px;
+			display : flex;
+			justify-content: center;
+			align-items : center;
+		}
+		.popup-footer-btn input{
+			height: 26px;
+			min-width : 60px;
+			border-radius : 5px;
+			border : 1px solid white;
+			margin-right : 10px;
+		}
+
+		/* standard popup css end*/
+
+	</style>
+</head>
+<body>
+	<!-- Single popup without appending template to body-->
+	<a  href="javascript:void(0)" onclick="runCodeSingle(event)">Single Popup</a>
+	
+	<!-- Hierarchical popup with provided template appended to body-->
+	<a  href="javascript:void(0)" onclick="runCode1(event)">Hierarchy Popup 1</a>
+
+	<!-- standard popup-->
+	<a href="javascript:void(0)" onclick="runAlertPopup(event)">standard Popup</a>
+	
+	<div data-template-id="invoiceModalPopup" style="display:none"> 
+	<div class="a"></div>
+	<div class="b"><a  href="javascript:void(0)" onclick="runCode2(event)">Hierarchy Popup 2</a></div>
+	<div class="c"></div>
+	</div> 
+	
+	<div data-template-id="invoiceModalPopupNew" style="display:none"> 
+	<div class="a"></div>
+	<div class="b"><a  href="javascript:void(0)" onclick="runCode3(event)">Hierarchy Popup 3</a></div>
+	<div class="c"></div>
+	</div>
+	
+	<div data-template-id="invoiceModalPopupNewNew" style="display:none"> 
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	</div> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="Popup.js"></script>
+	<script src="standardPopup.js"></script>
+
+	<script>
+		/*
+			Mandatory Fields : -
+				Give popupId
+				
+				For Content -
+					Either append a div template with 'data-template-id' as popupId in body . 
+					Remember only inner structure of div will be taken into account.
+					Or
+					Provide 'dataTemplate' with div structure to append in popup
+		*/
+		
+		function runCode1(){
+			// call  this method to generate popup
+			var config = {
+				width : 400,
+				height : 400,
+				popupId : 'invoiceModalPopup',
+				title : 'Multi Color',
+				modalOnClose : helloClose,
+				modalOnOpen : helloOpen
+			};
+			var newPopup =ModalPopup(config);
+		}
+		function runCode2(){
+			var config = {
+				// provide width or nothing for default 800
+				width : 500,
+				// provide height or nothing for default 600
+				height : 500,
+				// Mandatory field Popup will be of same id
+				popupId : 'invoiceModalPopupNew',
+				// default blank to change that provide title
+				title : 'Normal',
+				// use this config to provide callback on close				
+				modalOnClose : helloClose,
+				// use this config to provide callback on open	
+				modalOnOpen : helloOpen
+			};
+			var newPopup =ModalPopup(config);
+		}
+		function runCode3(){
+			var config = {
+				width : 400,
+				height : 400,
+				popupId : 'invoiceModalPopupNewNew',
+				title : 'Normal New',
+				modalOnClose : helloClose,
+				modalOnOpen : helloOpen
+			};
+			var newPopup =ModalPopup(config);
+		}
+		
+		function runCodeSingle(){
+			var config = {
+				width : 400,
+				height : 400,
+				popupId : 'singlePopup',
+				title : 'Single Popup',
+				dataTemplate : '<div>Inner data</div>',
+				modalOnClose : helloClose,
+				modalOnOpen : helloOpen,
+				onConfig : false      //This config allows to open manually popup . Need to call show method on popup object
+			};
+			var newPopup =ModalPopup(config);
+			newPopup.show();		// show method returns true on success else false
+			setTimeout(newPopup.close, 1000);     // close method returns true on success else false
+		}
+		// callbacks on open . Here data will be Id of popup
+		function helloOpen(data){
+			console.log(data);
+		}
+		// callbacks on close . Here event value will be event fired.
+		function helloClose(event){
+			console.log(event);
+		}
+
+
+
+		// error popup
+		function okPopup(){
+			alert("ok");
+		}
+		function cancelPopup(){
+			alert("cancel");
+		}
+		function runAlertPopup(){
+			
+			
+			ConfirmPopup({
+				title : 'ASAP Error',
+				msg : 'Plaese give me some money',
+				modalOnClose : helloClose,
+				modalOnOpen : helloOpen,
+				popupOnOk : okPopup,
+				popupOnCancel : cancelPopup,
+				OK : true,
+				OKVal : 'YES',
+				CANCEL : true,
+				CANCELVal : 'NO'
+			});
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+.modal-outer {
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-inner {
+    min-width: 400px;
+    min-height: 150px;
+    background-color: white;
+    pointer-events: auto;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: url("../on_behalf_of_popup_header_bg.jpg");
+    white-space: nowrap;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial;
+    border-radius: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    flex: 1;
+    position: relative;
+}
+
+.modal-footer {
+    height: 40px;
+}
+
+.modal-title {
+    padding-left: 10px;
+}
+
+.modal-close-btn {
+    width: 18px;
+    height: 18px;
+    background: url("../invoicePopupClose.png") no-repeat;
+    padding-right: 15px;
+}
+
+.modal-close-btn:hover {
+    background-position: 0 -18px;
+}
+.modal-footer {
+    background-color: green;
+}
+
+.modal-popup{
+	display: flex;
+	flex-flow: row wrap;
+
+	position: absolute;
+	top : 0px;
+	right : 0px;
+	bottom : 0px;
+	left : 0px;
+
+}
+.modal-popup-icon{
+	flex : 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal-popup-text{
+	flex : 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
